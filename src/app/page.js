@@ -4,6 +4,7 @@
 
 import React, {useState} from "react";
 import Button from "@/components/atoms/Button";
+import CatList from "@/components/organisms/CatList";
 
 
 export default function HomePage() {
@@ -56,13 +57,30 @@ export default function HomePage() {
     <div className="bg-orange-50 min-h-screen p-6 flex flex-col items-center">
       {/* App Title */}
       <h1 className="text-6xl font-bold mb-4 text-purple-700">Cute Kitty Gallery</h1>
-   
+      
+      {/* Add description for using this webapp */}
+      <p className="text-xl text-black mb-8 text-center max-w-md">
+        Click the buttons below to get random cat images. Enjoy Cute Kitty Gallery!
+      </p>
 
     {/* Buttons for fetching and clearing cat images */}
     <div className="flex space-x-4 mb-8">
        <Button label="Fetch Cats" onClick={fetchCats} /> {/* Fetches cat images */}
        <Button label="Clear Cats" onClick={clearCats} /> {/* Clears the images */}
     </div>
+
+    {/* Render CatList conditionally or show a placeholder message */}
+
+    {
+      // Check if showCats is true
+      showCats && cats.length > 0 ? (
+        <CatList cats={cats} /> // if true, render the catlist component and pass cat array as a prop. Show the list of cat images
+      ) : (
+        <p className="text-center text-black text-lg">
+          {showCats ? "No cats found" : "No images to display"} 
+        </p>  // If false, no cats are found, display with a message
+      )
+    }
     </div>
   );
 }
