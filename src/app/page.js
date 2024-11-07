@@ -1,95 +1,68 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// The main page for this Cat Image Web App
 
-export default function Home() {
+"use client";
+
+import React, {useState} from "react";
+import Button from "@/components/atoms/Button";
+
+
+export default function HomePage() {
+  const [cats, setCats] = useState([]);  // State to hold the array of cat images
+  const [showCats, setShowCats] = useState(false); // State to control whether cats are displayed
+
+    
+  // Function to fetch 5 random cat images from the Cat API
+     
+     const fetchCats = async () => {
+      try {
+        setCats([]); //Clear previous images
+        setShowCats(false);
+
+        // fetch 5 random cat images from the cat API
+        const response = await fetch(
+           ` https://api.thecatapi.com/v1/images/search?limit=5`,
+          {
+            // include the api key in the header for authentication 
+              headers: {
+                'x-api-key': process.env.NEXT_PUBLIC_CAT_API_KEY // api key stored in environment variable for security
+              }
+          }
+        );
+        // Parse the response as Json and stored the result in data
+        const data = await response.json(); 
+
+        if (data && data.length >0) {
+          setCats(data); // Update the state with new images
+          setShowCats(true);
+        } else {
+          alert("No cat images found"); // Error detection
+          setShowCats(false);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error); // log the error to the console
+        alert("An error occurred while fetching cat images."); // Show alert to the user
+      }
+     };
+
+     // Function to clear the cat images from display
+
+     const clearCats = () => {
+         setCats([]); // clear previous images 
+         setShowCats(false); // Hide display of images
+     };
+     
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="bg-orange-50 min-h-screen p-6 flex flex-col items-center">
+      {/* App Title */}
+      <h1 className="text-6xl font-bold mb-4 text-purple-700">Cute Kitty Gallery</h1>
+   
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    {/* Buttons for fetching and clearing cat images */}
+    <div className="flex space-x-4 mb-8">
+       <Button label="Fetch Cats" onClick={fetchCats} /> {/* Fetches cat images */}
+       <Button label="Clear Cats" onClick={clearCats} /> {/* Clears the images */}
+    </div>
     </div>
   );
 }
