@@ -21,18 +21,21 @@ body {
   gap: 16px;
 }
 
+/* on desktop, 3 images will be show on per row */
 @media (min-width: 1024px) {
   .cat-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
+/* on tablets, 2 images will be show on per row */
 @media (min-width: 600px) and (max-width: 1023px) {
   .cat-list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* on phones, 1 images will be shown per row */
 @media (max-width: 599px) {
   .cat-list {
     grid-template-columns: 1fr;
