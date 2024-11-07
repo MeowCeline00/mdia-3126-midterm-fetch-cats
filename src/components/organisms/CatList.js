@@ -10,8 +10,9 @@ export default function CatList({ cats }) {
             <CatDetails
               key={cat.id}
               url={cat.url}
-              temperament={cat.temperament}
+              width={cat.width}
               height={cat.height}
+              breed={cat.breeds}
             /> // Iterate over cats array and render a cat info details for each cat
         ))}
       </div>
