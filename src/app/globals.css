@@ -15,3 +15,26 @@ body {
   font-family: var(--font-geist-sans);
   background-color: #f1bd55; /* set background to yellow */
 }
+
+.cat-list {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .cat-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .cat-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 599px) {
+  .cat-list {
+    grid-template-columns: 1fr;
+  }
+}

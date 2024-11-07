@@ -5,7 +5,7 @@ import CatDetails from "../molecules/CatDetails";
 
 export default function CatList({ cats }) {
     return(
-      <div>
+      <div className="cat-list">
         {cats.map(cat => (
             <CatDetails
               key={cat.id}
