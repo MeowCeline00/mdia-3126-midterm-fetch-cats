@@ -12,7 +12,6 @@ export default function CatList({ cats }) {
               url={cat.url}
               width={cat.width}
               height={cat.height}
-              breed={cat.breeds}
             /> // Iterate over cats array and render a cat info details for each cat
         ))}
       </div>
