@@ -21,7 +21,7 @@ export default function HomePage() {
 
         // fetch 5 random cat images from the cat API
         const response = await fetch(
-           ` https://api.thecatapi.com/v1/images/search?limit=5`,
+           ` https://api.thecatapi.com/v1/images/search?limit=5&breed_ids=beng&api_key=process.env.NEXT_PUBLIC_CAT_API_KEYE`,
           {
             // include the api key in the header for authentication 
               headers: {
